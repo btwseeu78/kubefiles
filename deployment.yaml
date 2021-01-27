@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - image: urbic18/democodeigniter:v1
+        name: webapp
+        ports:
+        - containerPort: 80
+...
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webservice
+spec:
+  ports:
+  - port: 8080
+    targetPort: 80
+  selector:
+    app: webapp
+  type: NodePort
+...
